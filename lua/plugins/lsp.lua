@@ -1,19 +1,19 @@
 return {
   {
     "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "shellcheck",
-        "shfmt",
-        "rust-analyzer",
-        "clangd",
-        "pyright",
-        "black",
-        "ruff",
-      },
-    },
+    opts = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        vim.list_extend(opts.ensure_installed, {
+          "stylua",
+          "shellcheck",
+          "shfmt",
+          "black",
+          "ruff",
+        })
+      end
+    end,
   },
+  { "williamboman/mason-lspconfig.nvim", opts = { automatic_installation = true } },
   {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
