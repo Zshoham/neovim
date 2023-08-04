@@ -50,7 +50,7 @@ sleep(1)
 print("searching for curl process.")
 while os.popen("pgrep curl").read():
     print("curl found.")
-    sleep(0.1)
+    sleep(1)
 
 proc.terminate()
 proc.wait(timeout=10)
