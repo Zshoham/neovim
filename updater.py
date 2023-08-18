@@ -4,7 +4,7 @@ import subprocess
 from shlex import split
 from time import sleep, time
 
-LAZY_COMMAND = "nvim --headless +\"lua require('lazy')\""
+LAZY_COMMAND = "nvim --headless +\"lua require('lazy').update()\""
 MASON_LIST_COMMAND = "nvim --headless +\"lua print(vim.inspect(require('mason.settings').current.ensure_installed)); vim.api.nvim_command('quit')\""  # noqa: E501
 INSTALL_LSP_COMMAND = (
     "nvim --headless +\"lua require('mason-lspconfig.ensure_installed')()\""
