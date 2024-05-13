@@ -13,3 +13,6 @@ opt.foldenable = true
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
 opt.pumblend = 0 -- Enables pseudo-transparency for the popup-menu
+
+vim.g.lazyvim_python_lsp = "basedpyright"
+vim.g.lazyvim_python_ruff = "ruff"
