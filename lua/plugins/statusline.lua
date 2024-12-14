@@ -1,41 +1,52 @@
 return {
   {
     "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.g.lualine_laststatus = vim.o.laststatus
+      if vim.fn.argc(-1) > 0 then
+        -- set an empty statusline till lualine loads
+        vim.o.statusline = " "
+      else
+        -- hide the statusline on the starter page
+        vim.o.laststatus = 0
+      end
+    end,
     opts = function(_, opts)
-      local icons = require("lazyvim.config").icons
-      local UI = require("lazyvim.util").ui
+      local icons = LazyVim.config.icons
 
+      vim.o.laststatus = vim.g.lualine_laststatus
       opts.options.section_separators = " "
       opts.options.component_separators = " "
 
-      local disabled_filetypes_winbar = { "dashboard", "alpha", "lazy", "neo-tree", "trouble" }
-
-      opts.options.disabled_filetypes = {
-        statusline = { "dashboard", "alpha" },
-        winbar = disabled_filetypes_winbar,
-        inactive_winbar = disabled_filetypes_winbar,
-      }
-
       local winbar_config = {
         lualine_c = {
-          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 1 } },
-          { "filename", path = 1, separator = "|>", symbols = { modified = icons.git.modified, readonly = "", unnamed = "" } },
+          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+          {
+            "filename",
+            path = 1,
+            symbols = { modified = icons.git.modified, readonly = "", unnamed = "" },
+          },
         },
       }
 
       opts.winbar = winbar_config
       opts.inactive_winbar = winbar_config
 
+      local lazy_rootdir = LazyVim.lualine.root_dir()
+      lazy_rootdir.separator = "|>"
+
       opts.sections = {
         lualine_a = { "mode" },
         lualine_b = { "branch" },
+
         lualine_c = {
-          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 1 } },
+          lazy_rootdir,
+          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
           {
             "filename",
             path = 0,
             separator = "|>",
-            padding = { right = 1 },
             symbols = { modified = icons.git.modified, readonly = "", unnamed = "" },
           },
           {
@@ -48,19 +59,28 @@ return {
           },
         },
         lualine_x = {
-          { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = UI.fg("Special") },
-          { "diagnostics" },
           {
-            function()
-              ---@diagnostic disable-next-line: undefined-field
-              return require("noice").api.status.mode.get()
+            require("lazy.status").updates,
+            cond = require("lazy.status").has_updates,
+            color = function()
+              return { fg = Snacks.util.color("Special") }
             end,
-            cond = function()
-              ---@diagnostic disable-next-line: undefined-field
-              return package.loaded["noice"] and require("noice").api.status.mode.has()
-            end,
-            color = UI.fg("Constant"),
           },
+          {
+            "diagnostics",
+            symbols = {
+              error = icons.diagnostics.Error,
+              warn = icons.diagnostics.Warn,
+              info = icons.diagnostics.Info,
+              hint = icons.diagnostics.Hint,
+            },
+          },
+        -- stylua: ignore
+        {
+          function() return require("noice").api.status.mode.get() end,
+          cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+          color = function() return { fg = Snacks.util.color("Constant") } end,
+        },
           {
             "diff",
             symbols = {
@@ -73,10 +93,10 @@ return {
         lualine_y = {
           { "location", padding = { left = 1, right = 0 } },
         },
-        lualine_z = {
-          { "hostname" },
-        },
+        lualine_z = { "hostname" },
       }
+
+      return opts
     end,
   },
 }
