@@ -11,9 +11,9 @@ return {
       }
       opts.integrations.navic = { enabled = true, custom_bg = Colors.mantle }
       opts.integrations.native_lsp.inlay_hints = { background = false }
+      opts.integrations.blink_cmp = true
     end,
   },
-
   {
     "LazyVim/LazyVim",
     opts = {

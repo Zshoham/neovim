@@ -1,8 +1,7 @@
 return {
-  { "fedepujol/move.nvim" },
+  { "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
   { "HiPhish/rainbow-delimiters.nvim" },
   { "nvim-treesitter/nvim-treesitter-context", opts = { separator = "─", max_lines = 2 } },
-  { "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
   {
     "rmagatti/goto-preview",
     lazy = false,
@@ -11,25 +10,38 @@ return {
     },
   },
   {
-    "kevinhwang91/nvim-ufo",
-    dependencies = { "kevinhwang91/promise-async" },
+    "folke/snacks.nvim",
     opts = {
-      provider_selector = function(_, _, _)
-        return { "treesitter", "indent" }
-      end,
+      statuscolumn = { folds = { open = true } },
     },
   },
   {
-    "echasnovski/mini.surround",
+    "saghen/blink.cmp",
     opts = {
-      mappings = {
-        add = "gsa",
-        delete = "gsd",
-        find = "gsf",
-        find_left = "gsF",
-        highlight = "gsh",
-        replace = "gsr",
-        update_n_lines = "gsn",
+      keymap = {
+        preset = "enter",
+        ["<Tab>"] = {
+          function(cmp)
+            if cmp.snippet_active() then
+              return cmp.accept()
+            else
+              return cmp.select_next()
+            end
+          end,
+          "snippet_forward",
+          "fallback",
+        },
+        ["<S-Tab>"] = {
+          function(cmp)
+            if cmp.snippet_active() then
+              return cmp.accept()
+            else
+              return cmp.select_prev()
+            end
+          end,
+          "snippet_backward",
+          "fallback",
+        },
       },
     },
   },
