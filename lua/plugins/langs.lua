@@ -25,6 +25,8 @@ return {
         "lua",
         "markdown",
         "markdown_inline",
+        "hyprlang",
+        "rasi",
         "python",
         "query",
         "regex",
@@ -54,6 +56,7 @@ return {
     opts = {
       ensure_installed = {
         "stylua",
+        "bash-language-server",
         "shfmt",
         "hadolint",
         "markdownlint-cli2",

@@ -3,4 +3,4 @@
 -- Add any additional keymaps here
 
 vim.keymap.set("i", "<c-x>", "<esc>", { silent = true, desc = "Enter normal mode." })
-vim.keymap.set({"i", "n"}, "<leader>gv", "<cmd>DiffviewOpen<cr>", { silent = true, desc = "Open Git DiffView" })
+vim.keymap.set("n", "<leader>gv", "<cmd>DiffviewOpen<cr>", { silent = true, desc = "Open Git DiffView" })
