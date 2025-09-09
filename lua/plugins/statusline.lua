@@ -1,5 +1,11 @@
 return {
   {
+    "SmiteshP/nvim-navic",
+    opts = {
+      separator = " 🞂 ",
+    },
+  },
+  {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     init = function()
@@ -17,7 +23,7 @@ return {
 
       vim.o.laststatus = vim.g.lualine_laststatus
       opts.options.section_separators = " "
-      opts.options.component_separators = " "
+      opts.options.component_separators = "  "
 
       local winbar_config = {
         lualine_c = {

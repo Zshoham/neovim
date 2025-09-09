@@ -5,6 +5,11 @@ return {
     name = "catppuccin",
     opts = function(_, opts)
       local Colors = require("catppuccin.palettes").get_palette()
+      local bufferline = require("catppuccin.groups.integrations.bufferline")
+      if bufferline then
+      bufferline.get = bufferline.get_theme
+      end
+
       opts.styles = {
         comments = { "italic" },
         keywords = { "italic" },
@@ -12,6 +17,7 @@ return {
       opts.integrations.navic = { enabled = true, custom_bg = Colors.mantle }
       opts.integrations.native_lsp.inlay_hints = { background = false }
       opts.integrations.blink_cmp = true
+      return opts
     end,
   },
   {
