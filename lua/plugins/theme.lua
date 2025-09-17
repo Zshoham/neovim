@@ -5,10 +5,6 @@ return {
     name = "catppuccin",
     opts = function(_, opts)
       local Colors = require("catppuccin.palettes").get_palette()
-      local bufferline = require("catppuccin.groups.integrations.bufferline")
-      if bufferline then
-      bufferline.get = bufferline.get_theme
-      end
 
       opts.styles = {
         comments = { "italic" },
