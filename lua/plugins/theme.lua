@@ -11,7 +11,7 @@ return {
         keywords = { "italic" },
       }
       opts.integrations.navic = { enabled = true, custom_bg = Colors.mantle }
-      opts.integrations.native_lsp.inlay_hints = { background = false }
+      opts.lsp_styles.inlay_hints = { background = false }
       opts.integrations.blink_cmp = true
       return opts
     end,
