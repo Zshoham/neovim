@@ -64,7 +64,7 @@ return {
     "cmakelint",
     "cmakelang",
     "sqlfluff",
-    "basedpyright",
+    "ty",
     "ruff",
     "marksman",
     "clangd",
