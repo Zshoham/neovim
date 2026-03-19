@@ -16,4 +16,12 @@ return {
       statuscolumn = { folds = { open = true } },
     },
   },
+  {
+    "2kabhishek/seeker.nvim",
+    dependencies = { "folke/snacks.nvim" },
+    cmd = { "Seeker" },
+    keys = {
+      { "<leader>fs", ":Seeker files<CR>", desc = "Seek Files" },
+    },
+  },
 }
